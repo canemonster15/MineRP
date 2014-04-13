@@ -11,7 +11,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-	
+
 	public final Logger log = Logger.getLogger("Minecraft");
 	public File configFile;
 	public File playersFile;
@@ -19,7 +19,7 @@ public class Main extends JavaPlugin {
 	public FileConfiguration config;
 	public FileConfiguration players;
 	public FileConfiguration empires;
-	
+
 	public void onEnable() {
 		configFile = new File(this.getDataFolder(), "config.yml");
 		config = YamlConfiguration.loadConfiguration(configFile);
@@ -27,20 +27,31 @@ public class Main extends JavaPlugin {
 		players = YamlConfiguration.loadConfiguration(playersFile);
 		empiresFile = new File(this.getDataFolder(), "empires.yml");
 		empires = YamlConfiguration.loadConfiguration(empiresFile);
+		firstRun();
+		getServer().getPluginManager().registerEvents(new Event(this), this);
 		PluginDescriptionFile pdFile = this.getDescription();
-		log.info(pdFile.getName() + " v" + pdFile.getVersion() + " has been enabled!");
+		log.info(pdFile.getName() + " v" + pdFile.getVersion()
+				+ " has been enabled!");
 	}
-	
+
 	public void onDisable() {
 		PluginDescriptionFile pdFile = this.getDescription();
-		log.info(pdFile.getName() + " v" + pdFile.getVersion() + " has been disabled!");
+		log.info(pdFile.getName() + " v" + pdFile.getVersion()
+				+ " has been disabled!");
+	}
+
+	public boolean onCommand(CommandSender sender, Command cmd,
+			String commandLabel, String[] args) {
+
+		return false;
 	}
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		
-		
-		
-		return false;
+	public void firstRun() {
+		if(!config.contains("")) {
+			config.set("StartingMoney", 150);
+		} else {
+			return;
+		}
 	}
 
 }
