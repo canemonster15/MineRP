@@ -11,6 +11,12 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
+	
+	/*TO-DO List
+	 * -finish empires help page
+	 * -finish moneycommands help page
+	 * -finish RP help page
+	 */
 
 	public final Logger log = Logger.getLogger("Minecraft");
 	public File configFile;
@@ -34,6 +40,7 @@ public class Main extends JavaPlugin {
 		firstRun();
 		getServer().getPluginManager().registerEvents(new Event(this), this);
 		getServer().getPluginCommand("empires").setExecutor(new Empires(this));
+		getServer().getPluginCommand("pay").setExecutor(new MoneyCommands(this));
 		PluginDescriptionFile pdFile = this.getDescription();
 		log.info(pdFile.getName() + " v" + pdFile.getVersion()
 				+ " has been enabled!");

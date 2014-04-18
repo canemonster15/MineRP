@@ -27,42 +27,53 @@ public class Empires implements CommandExecutor {
 				System.out.println("Player is expected!");
 			} else {
 				Player p = (Player) sender;
-				if (args.length == 0) {
-					// Add help page here
-				} else if (args.length == 1) {
-					// Creating a Empire
-					if (args[0].equalsIgnoreCase("create")
-							|| args[0].equalsIgnoreCase("new")) {
-						p.sendMessage(ChatColor.RED
-								+ "You need to specify a name for your empire!");
-					} else if (args[0].equalsIgnoreCase("invite")) {
-						p.sendMessage(ChatColor.RED + "You need to specify the player!");
-					}
-				} else if (args.length == 2) {
-					if (args[0].equalsIgnoreCase("create")
-							|| args[0].equalsIgnoreCase("new")) {
-						if (args[1].length() > 10) {
+				if (p.hasPermission("minerp.empire")) {
+					if (args.length == 0) {
+						// Add help page here
+					} else if (args.length == 1) {
+						// Creating a Empire
+						if (args[0].equalsIgnoreCase("create")
+								|| args[0].equalsIgnoreCase("new")) {
 							p.sendMessage(ChatColor.RED
-									+ "Empire names cannot be more than 10 characters.");
-						} else {
-							String n = args[1];
-							createEmpire(p, n);
+									+ "You need to specify a name for your empire!");
+						} else if (args[0].equalsIgnoreCase("invite")) {
+							p.sendMessage(ChatColor.RED
+									+ "You need to specify the player!");
 						}
-					} else if (args[0].equalsIgnoreCase("invite")) {
-						Player t = Bukkit.getServer().getPlayer(args[1]);
-						String e = main.players.getString(p.getName() + ".Empire");
-						if (e == null) {
-							p.sendMessage("You are not part of an empire!");
-						} else {
-							String l = main.empires.getString(e + ".Leader");
-							if (p.getName() == l) {
-								invite(p, t, e);
+					} else if (args.length == 2) {
+						if (args[0].equalsIgnoreCase("create")
+								|| args[0].equalsIgnoreCase("new")) {
+							if (args[1].length() > 10) {
+								p.sendMessage(ChatColor.RED
+										+ "Empire names cannot be more than 10 characters.");
 							} else {
-								p.sendMessage(ChatColor.RED + "You are not the leader of the empire!");
-								p.sendMessage(ChatColor.RED + "Contact your empire leader to invite people!");
+								String n = args[1];
+								createEmpire(p, n);
+							}
+						} else if (args[0].equalsIgnoreCase("invite")) {
+							Player t = Bukkit.getServer().getPlayer(args[1]);
+							String e = main.players.getString(p.getName()
+									+ ".Empire");
+							if (e == null) {
+								p.sendMessage("You are not part of an empire!");
+							} else {
+								String l = main.empires
+										.getString(e + ".Leader");
+								if (p.getName() == l) {
+									invite(p, t, e);
+								} else {
+									p.sendMessage(ChatColor.RED
+											+ "You are not the leader of the empire!");
+									p.sendMessage(ChatColor.RED
+											+ "Contact your empire leader to invite people!");
+								}
 							}
 						}
+					} else {
+						p.sendMessage(ChatColor.RED + "Too many args!");
 					}
+				} else {
+					p.sendMessage(ChatColor.RED + "Invalid Permissions!");
 				}
 			}
 		}
@@ -79,9 +90,12 @@ public class Empires implements CommandExecutor {
 
 	public void invite(Player p, Player i, String n) {
 		invites.put(i.getName(), n);
-		p.sendMessage(ChatColor.BLUE + "You have invited " + i.getName() + " to your empire!");
-		i.sendMessage(ChatColor.BLUE + "You have been invited to " + ChatColor.YELLOW + n);
-		i.sendMessage(ChatColor.BLUE + "Type " + ChatColor.YELLOW + "/e join " + n + ChatColor.BLUE + " to join the empire!");
+		p.sendMessage(ChatColor.BLUE + "You have invited " + i.getName()
+				+ " to your empire!");
+		i.sendMessage(ChatColor.BLUE + "You have been invited to "
+				+ ChatColor.YELLOW + n);
+		i.sendMessage(ChatColor.BLUE + "Type " + ChatColor.YELLOW + "/e join "
+				+ n + ChatColor.BLUE + " to join the empire!");
 	}
 
 }
