@@ -63,7 +63,7 @@ public class MoneyCommands implements CommandExecutor {
 		double na = ca - a;
 		main.players.set(s.getName() + ".Wallet", na);
 		double ca2 = main.players.getDouble(t.getName() + ".Wallet");
-		double na2 = ca + a;
+		double na2 = ca2 + a;
 		main.players.set(t.getName() + ".Wallet", na2);
 	}
 

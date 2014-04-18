@@ -41,6 +41,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Event(this), this);
 		getServer().getPluginCommand("empires").setExecutor(new Empires(this));
 		getServer().getPluginCommand("pay").setExecutor(new MoneyCommands(this));
+		getServer().getPluginCommand("class").setExecutor(new RP(this));
 		PluginDescriptionFile pdFile = this.getDescription();
 		log.info(pdFile.getName() + " v" + pdFile.getVersion()
 				+ " has been enabled!");
