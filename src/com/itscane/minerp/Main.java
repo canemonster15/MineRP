@@ -16,9 +16,11 @@ public class Main extends JavaPlugin {
 	public File configFile;
 	public File playersFile;
 	public File empiresFile;
+	public File landFile;
 	public FileConfiguration config;
 	public FileConfiguration players;
 	public FileConfiguration empires;
+	public FileConfiguration land;
 
 	public void onEnable() {
 		configFile = new File(this.getDataFolder(), "config.yml");
@@ -27,8 +29,11 @@ public class Main extends JavaPlugin {
 		players = YamlConfiguration.loadConfiguration(playersFile);
 		empiresFile = new File(this.getDataFolder(), "empires.yml");
 		empires = YamlConfiguration.loadConfiguration(empiresFile);
+		landFile = new File(this.getDataFolder(), "land.yml");
+		land = YamlConfiguration.loadConfiguration(landFile);
 		firstRun();
 		getServer().getPluginManager().registerEvents(new Event(this), this);
+		getServer().getPluginCommand("empires").setExecutor(new Empires(this));
 		PluginDescriptionFile pdFile = this.getDescription();
 		log.info(pdFile.getName() + " v" + pdFile.getVersion()
 				+ " has been enabled!");
