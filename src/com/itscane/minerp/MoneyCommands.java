@@ -32,7 +32,13 @@ public class MoneyCommands implements CommandExecutor {
 						} else {
 							p.sendMessage(ChatColor.RED + "Argument not recognized!");
 						}
-					} else if (args.length == 2) {
+					} else if(args.length == 2) {
+						if (args[0].equalsIgnoreCase("pay")) {
+							p.sendMessage(ChatColor.RED + "You nee to specify the amount!");
+						} else {
+							p.sendMessage(ChatColor.RED + "Unrecognized argument!");
+						}
+					} else if (args.length == 3) {
 						if (args[0].equalsIgnoreCase("pay")) {
 							Player t = Bukkit.getServer().getPlayer(args[1]);
 							if (t == null) {
@@ -65,6 +71,7 @@ public class MoneyCommands implements CommandExecutor {
 		double ca2 = main.players.getDouble(t.getName() + ".Wallet");
 		double na2 = ca2 + a;
 		main.players.set(t.getName() + ".Wallet", na2);
+		main.save();
 	}
 
 }

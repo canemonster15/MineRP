@@ -1,6 +1,7 @@
 package com.itscane.minerp;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.command.Command;
@@ -29,6 +30,7 @@ public class Main extends JavaPlugin {
 	public FileConfiguration land;
 
 	public void onEnable() {
+		getServer().getPluginManager().registerEvents(new Event(this), this);
 		configFile = new File(this.getDataFolder(), "config.yml");
 		config = YamlConfiguration.loadConfiguration(configFile);
 		playersFile = new File(this.getDataFolder(), "players.yml");
@@ -38,9 +40,9 @@ public class Main extends JavaPlugin {
 		landFile = new File(this.getDataFolder(), "land.yml");
 		land = YamlConfiguration.loadConfiguration(landFile);
 		firstRun();
-		getServer().getPluginManager().registerEvents(new Event(this), this);
+		save();
 		getServer().getPluginCommand("empires").setExecutor(new Empires(this));
-		getServer().getPluginCommand("pay").setExecutor(new MoneyCommands(this));
+		getServer().getPluginCommand("money").setExecutor(new MoneyCommands(this));
 		getServer().getPluginCommand("class").setExecutor(new RP(this));
 		PluginDescriptionFile pdFile = this.getDescription();
 		log.info(pdFile.getName() + " v" + pdFile.getVersion()
@@ -66,5 +68,16 @@ public class Main extends JavaPlugin {
 			return;
 		}
 	}
-
+	
+	public void save() {
+		try {
+			config.save(configFile);
+			players.save(playersFile);
+			empires.save(empiresFile);
+			land.save(landFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

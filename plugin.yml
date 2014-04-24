@@ -1,0 +1,11 @@
+name: MineRP
+version: 0.1
+main: com.itscane.minerp.Main
+commands:
+  empires:
+    description: Displays the Empires commands.
+    aliases:  e
+  money:
+    description: Displays money commands.
+  class:
+    description: Displays the RP commands

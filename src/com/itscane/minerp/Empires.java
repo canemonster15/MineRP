@@ -40,20 +40,25 @@ public class Empires implements CommandExecutor {
 							p.sendMessage(ChatColor.RED
 									+ "You need to specify the player!");
 						} else if (args[0].equalsIgnoreCase("join")) {
-							p.sendMessage(ChatColor.RED + "You need to specify the empire!");
+							p.sendMessage(ChatColor.RED
+									+ "You need to specify the empire!");
 						} else if (args[0].equalsIgnoreCase("kick")) {
-							p.sendMessage(ChatColor.RED + "You need to specify the player!");
+							p.sendMessage(ChatColor.RED
+									+ "You need to specify the player!");
 						} else if (args[0].equalsIgnoreCase("claim")) {
 							String pn = p.getName();
 							String e = main.players.getString(pn + ".Empire");
 							if (e == null) {
-								p.sendMessage(ChatColor.RED + "You are not part of an empire!");
+								p.sendMessage(ChatColor.RED
+										+ "You are not part of an empire!");
 							} else {
-								String el = main.empires.getString(e + ".Leader");
+								String el = main.empires.getString(e
+										+ ".Leader");
 								if (pn == el) {
 									claim(p, e);
 								} else {
-									p.sendMessage(ChatColor.RED + "You are not the leader of your empire!");
+									p.sendMessage(ChatColor.RED
+											+ "You are not the leader of your empire!");
 								}
 							}
 						}
@@ -69,50 +74,66 @@ public class Empires implements CommandExecutor {
 							}
 						} else if (args[0].equalsIgnoreCase("invite")) {
 							Player t = Bukkit.getServer().getPlayer(args[1]);
-							String e = main.players.getString(p.getName()
-									+ ".Empire");
-							if (e == null) {
-								p.sendMessage("You are not part of an empire!");
+							if (t == null) {
+								p.sendMessage(ChatColor.RED
+										+ "Could not find player!");
 							} else {
-								String l = main.empires
-										.getString(e + ".Leader");
-								if (p.getName() == l) {
-									invite(p, t, e);
+								String e = main.players.getString(p.getName()
+										+ ".Empire");
+								if (e == null) {
+									p.sendMessage("You are not part of an empire!");
 								} else {
-									p.sendMessage(ChatColor.RED
-											+ "You are not the leader of the empire!");
-									p.sendMessage(ChatColor.RED
-											+ "Contact your empire leader to invite people!");
+									String l = main.empires.getString(e
+											+ ".Leader");
+									if (p.getName() == l) {
+										invite(p, t, e);
+									} else {
+										p.sendMessage(ChatColor.RED
+												+ "You are not the leader of the empire!");
+										p.sendMessage(ChatColor.RED
+												+ "Contact your empire leader to invite people!");
+									}
 								}
 							}
 						} else if (args[0].equalsIgnoreCase("join")) {
 							if (!invites.containsKey(p.getName())) {
-								p.sendMessage(ChatColor.RED + "You have not been invited to any empires!");
+								p.sendMessage(ChatColor.RED
+										+ "You have not been invited to any empires!");
 							} else {
 								String e = invites.get(p.getName());
 								if (!(e == args[1])) {
-									p.sendMessage(ChatColor.RED + "You have not been invited to " + ChatColor.YELLOW + e);
+									p.sendMessage(ChatColor.RED
+											+ "You have not been invited to "
+											+ ChatColor.YELLOW + e);
 								} else {
 									accept(p, e);
 								}
 							}
 						} else if (args[0].equalsIgnoreCase("kick")) {
 							if (main.players.getString(p.getName() + ".Empire") == null) {
-								p.sendMessage(ChatColor.RED + "You are not part of an empire!");
+								p.sendMessage(ChatColor.RED
+										+ "You are not part of an empire!");
 							} else {
-								String e = main.players.getString(p.getName() + ".Empire");
-								String on = main.empires.getString(e + ".Leader");
+								String e = main.players.getString(p.getName()
+										+ ".Empire");
+								String on = main.empires.getString(e
+										+ ".Leader");
 								if (!(on == p.getName())) {
-									p.sendMessage(ChatColor.RED + "You are not the leader of your empire!");
+									p.sendMessage(ChatColor.RED
+											+ "You are not the leader of your empire!");
 								} else {
 									String tn = args[1];
 									Player t = Bukkit.getServer().getPlayer(tn);
 									if (t == null) {
-										p.sendMessage(ChatColor.RED + "Could not find player " + tn);
+										p.sendMessage(ChatColor.RED
+												+ "Could not find player " + tn);
 									} else {
-										if (main.empires.contains(e + ".Members." + tn)) {
-											Player o = Bukkit.getServer().getPlayer(on);
-											kickPlayer(t, e, o);
+										if (main.empires.contains(e
+												+ ".Members." + tn)) {
+											kickPlayer(t, e, p);
+										} else {
+											p.sendMessage(ChatColor.RED
+													+ "That player isn't in your empire!");
 										}
 									}
 								}
@@ -132,9 +153,11 @@ public class Empires implements CommandExecutor {
 
 	public void createEmpire(Player p, String n) {
 		main.empires.set(n + ".Leader", p.getName());
+		main.empires.set(n + ".Members", "");
 		main.players.set(p.getName() + ".Empire", n);
 		p.sendMessage(ChatColor.BLUE + "You have created a new empire called "
 				+ n);
+		main.save();
 	}
 
 	public void invite(Player p, Player i, String n) {
@@ -145,25 +168,32 @@ public class Empires implements CommandExecutor {
 				+ ChatColor.YELLOW + n);
 		i.sendMessage(ChatColor.BLUE + "Type " + ChatColor.YELLOW + "/e join "
 				+ n + ChatColor.BLUE + " to join the empire!");
+		main.save();
 	}
-	
+
 	public void kickPlayer(Player p, String e, Player o) {
 		main.players.set(p.getName() + ".Empire", null);
-		p.sendMessage(ChatColor.RED + "You were kicked from the empire " + ChatColor.YELLOW + e);
+		p.sendMessage(ChatColor.RED + "You were kicked from the empire "
+				+ ChatColor.YELLOW + e);
 		main.empires.set(e + ".Members." + p.getName(), null);
-		o.sendMessage(ChatColor.BLUE + "You kicked " + ChatColor.YELLOW + p.getName() + ChatColor.BLUE + " from your empire!");
+		o.sendMessage(ChatColor.BLUE + "You kicked " + ChatColor.YELLOW
+				+ p.getName() + ChatColor.BLUE + " from your empire!");
+		main.save();
 	}
-	
+
 	public void accept(Player p, String e) {
 		invites.remove(p.getName());
 		main.empires.set(e + ".Members", p.getName());
-		p.sendMessage(ChatColor.BLUE + "You have joined " + ChatColor.YELLOW + e);
+		p.sendMessage(ChatColor.BLUE + "You have joined " + ChatColor.YELLOW
+				+ e);
 		String on = main.empires.getString(e + ".Leader");
 		main.players.set(p.getName() + ".Empire", e);
 		Player o = Bukkit.getServer().getPlayer(on);
-		o.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.BLUE + " joined your empire!");
+		o.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.BLUE
+				+ " joined your empire!");
+		main.save();
 	}
-	
+
 	public void claim(Player p, String e) {
 		int x = p.getLocation().getChunk().getX();
 		int z = p.getLocation().getChunk().getZ();
@@ -172,6 +202,8 @@ public class Empires implements CommandExecutor {
 		} else {
 			if (!main.land.contains(z + "")) {
 				main.land.set(x + "", z + "." + e);
+				p.sendMessage(ChatColor.BLUE + "You have claimed this land!");
+				main.save();
 			} else {
 				p.sendMessage(ChatColor.RED + "This land is already claimed!");
 			}
