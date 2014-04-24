@@ -43,6 +43,19 @@ public class Empires implements CommandExecutor {
 							p.sendMessage(ChatColor.RED + "You need to specify the empire!");
 						} else if (args[0].equalsIgnoreCase("kick")) {
 							p.sendMessage(ChatColor.RED + "You need to specify the player!");
+						} else if (args[0].equalsIgnoreCase("claim")) {
+							String pn = p.getName();
+							String e = main.players.getString(pn + ".Empire");
+							if (e == null) {
+								p.sendMessage(ChatColor.RED + "You are not part of an empire!");
+							} else {
+								String el = main.empires.getString(e + ".Leader");
+								if (pn == el) {
+									claim(p, e);
+								} else {
+									p.sendMessage(ChatColor.RED + "You are not the leader of your empire!");
+								}
+							}
 						}
 					} else if (args.length == 2) {
 						if (args[0].equalsIgnoreCase("create")
@@ -149,6 +162,20 @@ public class Empires implements CommandExecutor {
 		main.players.set(p.getName() + ".Empire", e);
 		Player o = Bukkit.getServer().getPlayer(on);
 		o.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.BLUE + " joined your empire!");
+	}
+	
+	public void claim(Player p, String e) {
+		int x = p.getLocation().getChunk().getX();
+		int z = p.getLocation().getChunk().getZ();
+		if (!main.land.contains(x + "")) {
+			main.land.set(x + "", z + "." + e);
+		} else {
+			if (!main.land.contains(z + "")) {
+				main.land.set(x + "", z + "." + e);
+			} else {
+				p.sendMessage(ChatColor.RED + "This land is already claimed!");
+			}
+		}
 	}
 
 }
