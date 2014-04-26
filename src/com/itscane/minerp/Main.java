@@ -62,7 +62,7 @@ public class Main extends JavaPlugin {
 	}
 	
 	public void firstRun() {
-		if(!config.contains("")) {
+		if(!config.contains("StartingMoney")) {
 			config.set("StartingMoney", 150);
 		} else {
 			return;

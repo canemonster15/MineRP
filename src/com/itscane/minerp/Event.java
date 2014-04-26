@@ -26,6 +26,7 @@ public class Event implements Listener {
 			p.sendMessage(ChatColor.BLUE + "Creating wallet and bank accounts!");
 			main.players.set(p.getName() + ".Wallet", a);
 			main.players.set(p.getName() + ".Bank", 0);
+			main.players.set(p.getName() + ".Empire", null);
 			p.sendMessage(ChatColor.BLUE + "Account Creation success!");
 			p.sendMessage(ChatColor.BLUE + "Welcome to " + Bukkit.getServer().getName() + "!");
 			p.sendMessage(ChatColor.BLUE + "This server is running MineRP " + version + " made by ItsCane and Mark_Laymon!");
@@ -52,8 +53,8 @@ public class Event implements Listener {
 			return;
 		}
 	}
-	@EventHandler
 	
+	@EventHandler
 	public void chat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		if (main.empires.contains(p.getName())) {
