@@ -54,7 +54,7 @@ public class Empires implements CommandExecutor {
 							} else {
 								String el = main.empires.getString(e
 										+ ".Leader");
-								if (pn == el) {
+								if (pn.equalsIgnoreCase(el)) {
 									claim(p, e);
 								} else {
 									p.sendMessage(ChatColor.RED
