@@ -21,5 +21,4 @@ public class Serf {
 		serfs.add(n);
 		p.sendMessage(ChatColor.BLUE + "You have become a miner!");
 	}
-	
 }
