@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.itscane.minerp.classes.Miner;
+import com.itscane.minerp.classes.Serf;
 
 public class RP implements CommandExecutor {
 	
-	public Miner miner;
+	public Serf serf;
 	
 	public Main main;
 	public RP(Main main) {
@@ -31,7 +31,7 @@ public class RP implements CommandExecutor {
 						//Finish the list of classes someone can be
 					} else if(args.length == 1) {
 						if (args[0].equalsIgnoreCase("miner")) {
-							miner.add(p);
+							serf.add(p);
 						}
 					}
 				}
