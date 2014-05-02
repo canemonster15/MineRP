@@ -48,13 +48,13 @@ public class Empires implements CommandExecutor {
 						} else if (args[0].equalsIgnoreCase("claim")) {
 							String pn = p.getName();
 							String e = main.players.getString(pn + ".Empire");
-							if (e == null) {
+							if (e.equalsIgnoreCase(null)) {
 								p.sendMessage(ChatColor.RED
 										+ "You are not part of an empire!");
 							} else {
 								String el = main.empires.getString(e
 										+ ".Leader");
-								if (pn == el) {
+								if (pn.equalsIgnoreCase(el)) {
 									claim(p, e);
 								} else {
 									p.sendMessage(ChatColor.RED
@@ -104,7 +104,7 @@ public class Empires implements CommandExecutor {
 								}
 							}
 						} else if (args[0].equalsIgnoreCase("kick")) {
-							if (main.players.getString(p.getName() + ".Empire") == null) {
+							if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase(null)) {
 								p.sendMessage(ChatColor.RED
 										+ "You are not part of an empire!");
 							} else {
@@ -112,7 +112,7 @@ public class Empires implements CommandExecutor {
 										+ ".Empire");
 								String on = main.empires.getString(e
 										+ ".Leader");
-								if (!(on.equalsIgnoreCase(p.getName()))) {
+								if (!on.equalsIgnoreCase(p.getName())) {
 									p.sendMessage(ChatColor.RED
 											+ "You are not the leader of your empire!");
 								} else {
