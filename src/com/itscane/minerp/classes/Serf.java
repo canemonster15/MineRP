@@ -7,23 +7,18 @@ import org.bukkit.entity.Player;
 
 import com.itscane.minerp.Main;
 
-public class Miner {
+public class Serf {
 	
-	public static HashSet<String> miners = new HashSet<String>();
+	public static HashSet<String> serfs = new HashSet<String>();
 	
 	public Main main;
-	public Miner(Main main) {
+	public Serf(Main main) {
 		this.main = main;
-	}
-	
-	public int getStrength() {
-		return 9;
 	}
 	
 	public void add(Player p) {
 		String n = p.getName();
-		miners.add(n);
+		serfs.add(n);
 		p.sendMessage(ChatColor.BLUE + "You have become a miner!");
 	}
-	
 }

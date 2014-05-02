@@ -17,6 +17,15 @@ public class Main extends JavaPlugin {
 	 * -finish empires help page
 	 * -finish moneycommands help page
 	 * -finish RP help page
+	 * -finish items they can sell page
+	 * -make the on join message nicer
+	 */
+	
+	/*DEVELOPMENT ORDER
+	 * -finish item sales
+	 * -add buying
+	 * -independent master smiths
+	 * -rest of classes
 	 */
 
 	public final Logger log = Logger.getLogger("Minecraft");
@@ -24,10 +33,12 @@ public class Main extends JavaPlugin {
 	public File playersFile;
 	public File empiresFile;
 	public File landFile;
+	public File blocksFile;
 	public FileConfiguration config;
 	public FileConfiguration players;
 	public FileConfiguration empires;
 	public FileConfiguration land;
+	public FileConfiguration blocks;
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new Event(this), this);
@@ -44,6 +55,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginCommand("empires").setExecutor(new Empires(this));
 		getServer().getPluginCommand("money").setExecutor(new MoneyCommands(this));
 		getServer().getPluginCommand("class").setExecutor(new RP(this));
+		getServer().getPluginCommand("sell").setExecutor(new Sell(this));
 		PluginDescriptionFile pdFile = this.getDescription();
 		log.info(pdFile.getName() + " v" + pdFile.getVersion()
 				+ " has been enabled!");
@@ -67,6 +79,18 @@ public class Main extends JavaPlugin {
 		} else {
 			return;
 		}
+		if (blocksFile.exists()) {
+			return;
+		} else {
+			blocks.set("stone.id", 1);
+			blocks.set("stone.price", 3);
+			blocks.set("dirt.id", 3);
+			blocks.set("dirt.price", 0.1);
+			blocks.set("cobble.id", 4);
+			blocks.set("cobble.price", 0.2);
+			blocks.set("wood.id", 5);
+			blocks.set("wood.price", 0.1);
+			}
 	}
 	
 	public void save() {

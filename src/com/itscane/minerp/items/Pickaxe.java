@@ -9,7 +9,7 @@ public class Pickaxe {
 		this.main = main;
 	}
 	
-	public int strength() {
-		return 8;
+	public String getClassNeeded() {
+		return "Miner";
 	}
 }
