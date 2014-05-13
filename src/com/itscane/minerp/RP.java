@@ -1,5 +1,6 @@
 package com.itscane.minerp;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,14 +32,20 @@ public class RP implements CommandExecutor {
 						//Finish the list of classes someone can be
 					} else if(args.length == 1) {
 						if (args[0].equalsIgnoreCase("miner")) {
-							serf.add(p);
+							if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase(null)) {
+								p.sendMessage(ChatColor.RED + "You need to be part of an empire!");
+							} else {
+								String e = main.players.getString(p.getName() + ".Empire");
+								serf.add(p, e);
+								String ln = main.empires.getString(e + ".Leader");
+								Player l = Bukkit.getServer().getPlayer(ln);
+								l.sendMessage(ChatColor.BLUE + p.getName() + " has became a serf!");
+							}
 						}
 					}
 				}
 			}
-		}
-		
+		}	
 		return false;
 	}
-
 }

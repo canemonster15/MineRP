@@ -90,7 +90,13 @@ public class Main extends JavaPlugin {
 			blocks.set("cobble.price", 0.2);
 			blocks.set("wood.id", 5);
 			blocks.set("wood.price", 0.1);
-			}
+			blocks.set("sappling.id", 6);
+			blocks.set("sappling.price", 0.05);
+			blocks.set("sand.id", 12);
+			blocks.set("sand.price", 0.1);
+			blocks.set("gravel.id", 13);
+			blocks.set("gravel.price", 0.1);
+		}
 	}
 	
 	public void save() {
