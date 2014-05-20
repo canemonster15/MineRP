@@ -9,3 +9,5 @@ commands:
     description: Displays money commands.
   class:
     description: Displays the RP commands
+  serf:
+    description: Become a serf.
