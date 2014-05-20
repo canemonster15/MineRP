@@ -79,7 +79,7 @@ public class Main extends JavaPlugin {
 		} else {
 			return;
 		}
-		if (blocksFile.exists()) {
+		if (blocks.contains("stone.id")) {
 			return;
 		} else {
 			blocks.set("stone.id", 1);
@@ -109,5 +109,4 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 	}
-	
 }

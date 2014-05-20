@@ -1,11 +1,11 @@
-package com.itscane.minerp.items;
+package com.itscane.minerp;
 
 import com.itscane.minerp.Main;
 
-public class Pickaxe {
+public class ItemPickaxe {
 	
 	public Main main;
-	public Pickaxe(Main main) {
+	public ItemPickaxe(Main main) {
 		this.main = main;
 	}
 	

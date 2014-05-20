@@ -1,4 +1,4 @@
-package com.itscane.minerp.classes;
+package com.itscane.minerp;
 
 import java.util.HashMap;
 
@@ -7,12 +7,12 @@ import org.bukkit.entity.Player;
 
 import com.itscane.minerp.Main;
 
-public class Serf {
+public class ClassSerf {
 	
 	public static HashMap<String, String> serfs = new HashMap<String, String>();
 	
 	public Main main;
-	public Serf(Main main) {
+	public ClassSerf(Main main) {
 		this.main = main;
 	}
 	

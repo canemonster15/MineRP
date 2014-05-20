@@ -7,11 +7,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.itscane.minerp.classes.Serf;
-
 public class RP implements CommandExecutor {
 	
-	public Serf serf;
+	public ClassSerf serf;
 	
 	public Main main;
 	public RP(Main main) {
@@ -32,7 +30,7 @@ public class RP implements CommandExecutor {
 						//Finish the list of classes someone can be
 					} else if(args.length == 1) {
 						if (args[0].equalsIgnoreCase("miner")) {
-							if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase(null)) {
+							if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase("")) {
 								p.sendMessage(ChatColor.RED + "You need to be part of an empire!");
 							} else {
 								String e = main.players.getString(p.getName() + ".Empire");
