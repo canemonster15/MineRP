@@ -192,7 +192,7 @@ public class Empires implements CommandExecutor {
 		int x = p.getLocation().getChunk().getX();
 		int z = p.getLocation().getChunk().getZ();
 		if (!main.land.contains(x + "")) {
-			main.land.set(x + "", z + "." + e);
+			main.land.set("Land." + x + ".", z + "." + e);
 		} else {
 			if (!main.land.contains(z + "")) {
 				main.land.set(x + "", z + "." + e);

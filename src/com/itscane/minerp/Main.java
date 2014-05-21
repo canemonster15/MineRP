@@ -19,6 +19,7 @@ public class Main extends JavaPlugin {
 	 * -finish RP help page
 	 * -finish items they can sell page
 	 * -make the on join message nicer
+	 * -fix the claiming issue with the confusing code
 	 */
 	
 	/*DEVELOPMENT ORDER
@@ -27,6 +28,7 @@ public class Main extends JavaPlugin {
 	 * -independent master smiths
 	 * -rest of classes
 	 */
+	
 
 	public final Logger log = Logger.getLogger("Minecraft");
 	public File configFile;

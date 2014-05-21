@@ -13,14 +13,12 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.itscane.minerp.classes.Serf;
-
 public class Event implements Listener {
 
 	public double version = 0.1;
 
 	public Main main;
-	public Serf serf;
+	public ClassSerf serf;
 
 	public Event(Main main) {
 		this.main = main;
@@ -35,6 +33,7 @@ public class Event implements Listener {
 			main.players.set(p.getName() + ".Wallet", a);
 			main.players.set(p.getName() + ".Bank", 0);
 			main.players.set(p.getName() + ".Empire", null);
+			main.save();
 			p.sendMessage(ChatColor.BLUE + "Account Creation success!");
 			p.sendMessage(ChatColor.BLUE + "Welcome to "
 					+ Bukkit.getServer().getName() + "!");
@@ -66,6 +65,7 @@ public class Event implements Listener {
 		} else {
 			return;
 		}
+		
 		if (serf.serfs.contains(p.getName())) {
 			return;
 		}else {
@@ -149,6 +149,7 @@ public class Event implements Listener {
 				|| p.getInventory().getItemInHand() == whoe
 				|| p.getInventory().getItemInHand() == wshovel) {
 			String n = p.getName();
+			
 			if (serf.serfs.contains(n)) {
 				return;
 			} else {
