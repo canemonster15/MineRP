@@ -21,7 +21,7 @@ public class MoneyCommands implements CommandExecutor {
 				System.out.println("Player is expected!");
 			} else {
 				Player p = (Player) sender;
-				if(!p.hasPermission("minerp")) {
+				if(!p.hasPermission("minerp.money")) {
 					p.sendMessage(ChatColor.RED + "Invalid Permissions!");
 				} else {
 					if (args.length == 0) {

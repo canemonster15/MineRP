@@ -81,24 +81,24 @@ public class Main extends JavaPlugin {
 		} else {
 			return;
 		}
-		if (blocks.contains("stone.id")) {
-			return;
-		} else {
-			blocks.set("stone.id", 1);
-			blocks.set("stone.price", 3);
-			blocks.set("dirt.id", 3);
-			blocks.set("dirt.price", 0.1);
-			blocks.set("cobble.id", 4);
-			blocks.set("cobble.price", 0.2);
-			blocks.set("wood.id", 5);
-			blocks.set("wood.price", 0.1);
-			blocks.set("sappling.id", 6);
-			blocks.set("sappling.price", 0.05);
-			blocks.set("sand.id", 12);
-			blocks.set("sand.price", 0.1);
-			blocks.set("gravel.id", 13);
-			blocks.set("gravel.price", 0.1);
-		}
+		//if (blocks.contains("stone.id")) {
+		//	return;
+		//} else {
+		//	blocks.set("stone.id", 1);
+		//	blocks.set("stone.price", 3);
+		//	blocks.set("dirt.id", 3);
+		//	blocks.set("dirt.price", 0.1);
+		//	blocks.set("cobble.id", 4);
+		//	blocks.set("cobble.price", 0.2);
+		//	blocks.set("wood.id", 5);
+		//	blocks.set("wood.price", 0.1);
+		//	blocks.set("sappling.id", 6);
+		//	blocks.set("sappling.price", 0.05);
+		//	blocks.set("sand.id", 12);
+		//	blocks.set("sand.price", 0.1);
+		//	blocks.set("gravel.id", 13);
+		//	blocks.set("gravel.price", 0.1);
+		//}
 	}
 	
 	public void save() {

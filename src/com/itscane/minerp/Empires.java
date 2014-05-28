@@ -1,5 +1,6 @@
 package com.itscane.minerp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -122,8 +123,7 @@ public class Empires implements CommandExecutor {
 										p.sendMessage(ChatColor.RED
 												+ "Could not find player " + tn);
 									} else {
-										if (main.empires.contains(e
-												+ ".Members." + tn)) {
+										if (main.empires.getStringList(e + ".Members").contains(tn)) {
 											kickPlayer(t, e, p);
 										} else {
 											p.sendMessage(ChatColor.RED
@@ -166,17 +166,22 @@ public class Empires implements CommandExecutor {
 	}
 	
 	public void kickPlayer(Player p, String e, Player o) {
+		ArrayList<String> l = (ArrayList<String>) main.empires.getStringList(e + ".Memebers");
+		l.remove(p.getName());
+		main.empires.set(e + ".Memebers", l);
 		main.players.set(p.getName() + ".Empire", null);
 		p.sendMessage(ChatColor.RED + "You were kicked from the empire "
 				+ ChatColor.YELLOW + e);
-		main.empires.set(e + ".Members." + p.getName(), null);
+		main.empires.getStringList(e + ".Members").remove(p.getName());
 		o.sendMessage(ChatColor.BLUE + "You kicked " + ChatColor.YELLOW
 				+ p.getName() + ChatColor.BLUE + " from your empire!");
 		main.save();
 	}
 
 	public void accept(Player p, String e) {
-		main.empires.set(e + ".Members", p.getName());
+		ArrayList<String>l = (ArrayList<String>) main.empires.getStringList(e + ".Members");
+		l.add(p.getName());
+		main.empires.set(e + ".Members", l);
 		p.sendMessage(ChatColor.BLUE + "You have joined " + ChatColor.YELLOW
 				+ e);
 		String on = main.empires.getString(e + ".Leader");
@@ -191,7 +196,7 @@ public class Empires implements CommandExecutor {
 	public void claim(Player p, String e) {
 		int x = p.getLocation().getChunk().getX();
 		int z = p.getLocation().getChunk().getZ();
-		if (!main.land.contains(x + "")) {
+		if (!main.land.contains("Land." + x)) {
 			main.land.set("Land." + x + ".", z + "." + e);
 		} else {
 			if (!main.land.contains(z + "")) {
