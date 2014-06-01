@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 	
 	/*TO-DO List
-	 * -finish empires help page
+	 * -finish empires help page(FINISHED)
 	 * -finish moneycommands help page
 	 * -finish RP help page
 	 * -finish items they can sell page

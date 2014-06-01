@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,11 +34,11 @@ public class Empires implements CommandExecutor {
 				Player p = (Player) sender;
 				if (p.hasPermission("minerp.empire")) {
 					if (args.length == 0) {
-						p.sendMessage(ChatColor.BLUE + "-----====MineRP====----");
-						p.sendMessage(ChatColor.BLUE + "/e new <name> - Creates a new empire.");
-						p.sendMessage(ChatColor.BLUE + "/e invite <name> - Invites player to empire!");
-						p.sendMessage(ChatColor.BLUE + "/e join <name> - Joins a empire.");
-						p.sendMessage(ChatColor.BLUE + "/e kick <name> - Kicks a player from your empire.");
+						p.sendMessage(ChatColor.BLUE + "-----====" + ChatColor.GREEN + "MineRP" + ChatColor.BLUE + "====----");
+						p.sendMessage(ChatColor.BLUE + "/e new <name> - " + ChatColor.GREEN + "Creates a new empire.");
+						p.sendMessage(ChatColor.BLUE + "/e invite <name> - " + ChatColor.GREEN + "Invites player to empire!");
+						p.sendMessage(ChatColor.BLUE + "/e join <name> - " + ChatColor.GREEN + "Joins a empire.");
+						p.sendMessage(ChatColor.BLUE + "/e kick <name> - " + ChatColor.GREEN + "Kicks a player from your empire.");
 					} else if (args.length == 1) {
 						// Creating a Empire
 						if (args[0].equalsIgnoreCase("create")
@@ -64,6 +68,19 @@ public class Empires implements CommandExecutor {
 								} else {
 									p.sendMessage(ChatColor.RED
 											+ "You are not the leader of your empire!");
+								}
+							}
+						} else if (args[0].equalsIgnoreCase("disband")) {
+							String n = p.getName();
+							if(main.players.getString(n + ".Empire").equalsIgnoreCase("")) {
+								p.sendMessage(ChatColor.RED + "You are not part of an empire!");
+							} else {
+								String e = main.empires.getString(n + ".Empire");
+								String el = main.empires.getString(e + ".Leader");
+								if (n.equalsIgnoreCase(el)) {
+									disband(p, e);
+								} else {
+									p.sendMessage(ChatColor.RED + "You are not the leader of your empire!");
 								}
 							}
 						}
@@ -171,6 +188,7 @@ public class Empires implements CommandExecutor {
 		p.sendMessage(ChatColor.BLUE + "You have created a new empire called "
 				+ n);
 		main.save();
+		createFlag(p);
 	}
 
 	public void invite(Player p, Player t, String e) {
@@ -227,6 +245,29 @@ public class Empires implements CommandExecutor {
 			} else {
 				p.sendMessage(ChatColor.RED + "This land is already claimed!");
 			}
+		}
+	}
+	
+	public void createFlag(Player p) {
+		for (double i = p.getLocation().getY(); i > i + 7; i++) {
+			double x = p.getLocation().getX();
+			double z = p.getLocation().getZ();
+			World w = p.getLocation().getWorld();
+			Location l = new Location(w, x, i, z);
+			Block b = l.getBlock();
+			b.setType(Material.FENCE);
+		}
+	}
+	
+	public void disband(Player p, String e) {
+		main.players.set(p.getName() + ".Empire", "");
+		main.empires.set(e, null);
+		Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "The empire of " + ChatColor.YELLOW + e + ChatColor.BLUE + " has been disbanded!");
+		ArrayList<String> m = (ArrayList<String>) main.empires.get(e + ".Members");
+		int s = m.size();
+		for (int i = 0; i > s; i++) {
+			String n = m.get(i);
+			main.players.set(n + ".Empire", "");
 		}
 	}
 }

@@ -29,7 +29,7 @@ public class ClassSerf implements CommandExecutor {
 				if (!p.hasPermission("minerp.serf")) {
 					p.sendMessage(ChatColor.RED + "Invalid Permission!");
 				} else {
-					if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase(null)) {
+					if (main.players.getString(p.getName() + ".Empire").equalsIgnoreCase("")) {
 						p.sendMessage(ChatColor.RED + "You are not part of an empire!");
 					} else {
 						String e = main.players.getString(p.getName() + ".Empire");

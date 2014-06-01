@@ -32,7 +32,8 @@ public class Event implements Listener {
 			p.sendMessage(ChatColor.BLUE + "Creating wallet and bank accounts!");
 			main.players.set(p.getName() + ".Wallet", a);
 			main.players.set(p.getName() + ".Bank", 0);
-			main.players.set(p.getName() + ".Empire", null);
+			main.players.set(p.getName() + ".Empire", "");
+			main.players.set(p.getName() + ".Job", "");
 			main.save();
 			p.sendMessage(ChatColor.BLUE + "Account Creation success!");
 			p.sendMessage(ChatColor.BLUE + "Welcome to "
@@ -68,7 +69,7 @@ public class Event implements Listener {
 		
 		if (serf.serfs.contains(p.getName())) {
 			return;
-		}else {
+		} else {
 			e.setCancelled(true);
 		}
 	}
